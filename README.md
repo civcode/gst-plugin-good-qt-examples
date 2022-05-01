@@ -37,11 +37,11 @@ You can build gstreamer and all plugins easily from source.
 
 - Prerequisites (assuming you already have build-essential and the usual suspects installed)
 ```
-- $ sudo apt-get install flex bison
-- $ sudo apt-get install python3-pip
-- $ sudo apt-get install ninja-build
-- $ pip3 install --user meson
-- $ vi ~/.bashrc
+$ sudo apt-get install flex bison
+$ sudo apt-get install python3-pip
+$ sudo apt-get install ninja-build
+$ pip3 install --user meson
+$ vi ~/.bashrc
   export PATH=$PATH:/home/chris/.local/bin
 ```
 - Install qt5
