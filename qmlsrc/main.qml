@@ -47,7 +47,7 @@ ApplicationWindow {
                 property int count: 0
                 property int tex1_visible: 1
                 property int tex2_visible: 0
-                interval: 30; running: true; repeat: true
+                interval: 1000; running: true; repeat: true
                 onTriggered: {
                   count++;
                   if (count%2 == 0) {
