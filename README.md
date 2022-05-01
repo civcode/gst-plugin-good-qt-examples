@@ -61,5 +61,5 @@ $ export PATH=$PATH:/home/$USER/Qt/5.15.2/gcc_64/bin
 $ cd gstreamer
 $ meson build --buildtype=debug -Dgood=enabled -Dgst-plugins-good:qt5=enabled
 $ ninja -C build -j8
-(to clean use: $ ninja -C build/ -t clean)
+(to clean use: $ ninja -C build -t clean)
 ```
