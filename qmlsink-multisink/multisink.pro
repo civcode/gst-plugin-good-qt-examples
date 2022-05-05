@@ -23,3 +23,8 @@ QML_IMPORT_PATH =
 
 HEADERS += \
     videoitem/videoitem.h
+
+
+target.path = /opt/data/$${TARGET}/bin
+INSTALLS += target
+
