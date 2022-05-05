@@ -38,12 +38,18 @@ ApplicationWindow {
             height: parent.height - 30
             radius: 8
 
+
             MouseArea {
                 id: mousearea
                 anchors.fill: parent
                 hoverEnabled: true
                 onEntered: {
                     parent.opacity = 1.0
+                    hidetimer.start()
+                }
+                onClicked: {
+                    parent.opacity = 1.0
+                    hidetimer.stop()
                     hidetimer.start()
                 }
             }
