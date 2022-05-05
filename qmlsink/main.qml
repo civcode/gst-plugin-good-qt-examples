@@ -9,7 +9,7 @@ import org.freedesktop.gstreamer.GLVideoItem 1.0
 ApplicationWindow {
     id: window
     visible: true
-    width: 640
+    width: 800
     height: 480
     x: 30
     y: 30
@@ -27,6 +27,7 @@ ApplicationWindow {
         }
 
         Rectangle {
+            id: rectId
             color: Qt.rgba(1, 1, 1, 0.7)
             border.width: 1
             border.color: "white"
@@ -49,12 +50,21 @@ ApplicationWindow {
 
             Timer {
                 id: hidetimer
-                interval: 5000
+                interval: 2000
                 onTriggered: {
                     parent.opacity = 0.0
                     stop()
                 }
             }
+
+
         }
+
+
     }
+    onOpenglContextCreated: {
+        rectId.opacity = 0.0
+        //hidetimer.start()
+    }
+
 }

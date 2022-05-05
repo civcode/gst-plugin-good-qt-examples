@@ -46,15 +46,41 @@ int main(int argc, char *argv[])
 
     GstElement *pipeline = gst_pipeline_new (NULL);
     GstElement *src = gst_element_factory_make ("videotestsrc", NULL);
+
+    GstElement *scaler = gst_element_factory_make("videoscale", NULL);
+
     GstElement *glupload = gst_element_factory_make ("glupload", NULL);
     /* the plugin must be loaded before loading the qml file to register the
      * GstGLVideoItem qml item */
     GstElement *sink = gst_element_factory_make ("qmlglsink", NULL);
 
-    g_assert (src && glupload && sink);
+    GstElement *capsfilter = gst_element_factory_make("capsfilter", NULL);
 
-    gst_bin_add_many (GST_BIN (pipeline), src, glupload, sink, NULL);
-    gst_element_link_many (src, glupload, sink, NULL);
+    GstCaps *video_caps = gst_caps_new_simple("video/x-raw",
+                                              //"format", G_TYPE_STRING, "I420",
+                                              //"format", G_TYPE_STRING, "GRAY",
+                                              "width", G_TYPE_INT, 800,
+                                              "height", G_TYPE_INT, 480,
+                                              NULL);
+
+    //g_assert (src && glupload && sink);
+    g_assert (src && scaler && glupload && sink);
+
+    // set properties
+    //g_object_set(src, "pattern", 18, NULL);
+    //g_object_set(src, "");
+    g_object_set(capsfilter, "caps", video_caps, NULL);
+
+
+    //gst_bin_add_many (GST_BIN (pipeline), src, glupload, sink, NULL);
+    //gst_element_link_many (src, glupload, sink, NULL);
+    //gst_bin_add_many (GST_BIN (pipeline), src, scaler, glupload, sink, NULL);
+    //gst_element_link_many (src, scaler, glupload, sink, NULL);
+    gst_bin_add_many (GST_BIN (pipeline), src, scaler, capsfilter, glupload, sink, NULL);
+    gst_element_link_many (src, scaler, capsfilter, glupload, sink, NULL);
+//    if (!gst_element_link_filtered(src, scaler, video_caps)) {
+//        return -1;
+//    }
 
     QQmlApplicationEngine engine;
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
