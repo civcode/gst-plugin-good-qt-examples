@@ -10,9 +10,11 @@ PKGCONFIG = \
 
 DEFINES += GST_USE_UNSTABLE_API
 
-INCLUDEPATH += ../lib
+INCLUDEPATH +=  include
 
-SOURCES += main.cpp
+SOURCES += src/main.cpp \
+           src/MyTimer.cpp \
+           src/SetPlaying.cpp
 
 RESOURCES += qmlsink.qrc
 
@@ -22,3 +24,7 @@ QML_IMPORT_PATH =
 
 target.path = /opt/data/$${TARGET}/bin
 INSTALLS += target
+
+HEADERS += \
+    include/MyTimer.h \
+    include/SetPlaying.h

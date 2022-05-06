@@ -2,6 +2,7 @@ import QtQuick 2.4
 import QtQuick.Controls 1.1
 import QtQuick.Controls.Styles 1.3
 import QtQuick.Dialogs 1.2
+import QtQuick.Layouts 1.3
 import QtQuick.Window 2.1
 
 import org.freedesktop.gstreamer.GLVideoItem 1.0
@@ -76,6 +77,25 @@ ApplicationWindow {
                 onTriggered: {
                     parent.opacity = 0.0
                     stop()
+                }
+            }
+
+            ColumnLayout {
+                x: parent.x + 10
+                y: parent.y + 10
+                Button {
+                    text: "default"
+                    onClicked: {
+                        console.log("clicked")
+                        //MyTimer.onButtonPressed()
+                        MyTimer.button(0)
+                    }
+                }
+                Button {
+                    text: "ball"
+                    onClicked: {
+                        MyTimer.button(1)
+                    }
                 }
             }
 

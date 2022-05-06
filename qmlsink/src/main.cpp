@@ -1,84 +1,16 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 #include <QQuickWindow>
 #include <QQuickItem>
-#include <QRunnable>
+
 #include <QTimer>
-//#include <QObject>
+//
 #include <gst/gst.h>
 
-class SetPlaying : public QRunnable
-{
-public:
-  SetPlaying(GstElement *);
-  ~SetPlaying();
+#include "SetPlaying.h"
+#include "MyTimer.h"
 
-  void run ();
-
-private:
-  GstElement * pipeline_;
-};
-
-SetPlaying::SetPlaying (GstElement * pipeline)
-{
-  this->pipeline_ = pipeline ? static_cast<GstElement *> (gst_object_ref(pipeline)) : NULL;
-}
-
-SetPlaying::~SetPlaying ()
-{
-  if (this->pipeline_)
-    gst_object_unref (this->pipeline_);
-}
-
-void SetPlaying::run ()
-{
-  GstElement *elem_ptr = gst_bin_get_by_name(GST_BIN(this->pipeline_), "video_test_source");
-  //g_object_set(elem_ptr, "pattern", 18, NULL);
-
-  if (this->pipeline_)
-    gst_element_set_state (this->pipeline_, GST_STATE_PLAYING);
-}
-
-
-
-
-
-//class MyTimer : public QObject
-//{
-//    Q_OBJECT
-//public:
-//    MyTimer(GstElement * pipeline);
-//    virtual ~MyTimer();
-
-//private slots:
-//  void onTimerExpired();
-
-//private:
-//  GstElement * pipeline_;
-//  QTimer *timer_;
-//};
-
-//MyTimer::MyTimer(GstElement * pipeline)
-//{
-//  this->pipeline_ = pipeline ? static_cast<GstElement *> (gst_object_ref (pipeline)) : NULL;
-//  timer_ = new QTimer(this);
-//  connect(timer_, SIGNAL(timeout()), this, SLOT(onTimerExpired()));
-//  timer_->start((1000));
-//}
-
-
-//void MyTimer::onTimerExpired() {
-//    static bool state;
-
-//    GstElement *elem_ptr = gst_bin_get_by_name(GST_BIN(this->pipeline_), "video_test_source");
-//    if (state) {
-//        state = false;
-//        g_object_set(elem_ptr, "pattern", 0, NULL);
-//    } else {
-//        g_object_set(elem_ptr, "pattern", 18, NULL);
-//    }
-
-//}
 
 int main(int argc, char *argv[])
 {
@@ -126,7 +58,11 @@ int main(int argc, char *argv[])
     gst_element_link_many (src, scaler, capsfilter, glupload, sink, NULL);
 
     QQmlApplicationEngine engine;
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+
+    MyTimer myTimer(pipeline);
+    engine.rootContext()->setContextProperty("MyTimer", &myTimer);
+
+    engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
 
     QQuickItem *videoItem;
     QQuickWindow *rootObject;
@@ -137,8 +73,9 @@ int main(int argc, char *argv[])
     g_assert (videoItem);
     g_object_set(sink, "widget", videoItem, NULL);
 
-    rootObject->scheduleRenderJob (new SetPlaying (pipeline),
-        QQuickWindow::BeforeSynchronizingStage);
+    rootObject->scheduleRenderJob (new SetPlaying (pipeline), QQuickWindow::BeforeSynchronizingStage);
+
+
 
     ret = app.exec();
 
