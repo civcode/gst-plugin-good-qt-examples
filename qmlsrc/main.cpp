@@ -47,7 +47,8 @@ int main(int argc, char *argv[])
 
   GstElement *pipeline = gst_pipeline_new (NULL);
   GstElement *src = gst_element_factory_make ("qmlglsrc", NULL);
-  GstElement *sink = gst_element_factory_make ("glimagesink", NULL); 
+  GstElement *sink = gst_element_factory_make ("glimagesink", NULL);
+  //GstElement *sink = gst_element_factory_make ("xvimagesink", NULL);
 
   g_assert (src && sink);
 
@@ -64,7 +65,7 @@ int main(int argc, char *argv[])
   g_object_set(src, "window", rootObject, NULL);
   g_object_set(src, "use-default-fbo", TRUE, NULL);
   /* output buffer of qmlglsrc is vertical flip, get the image orientation tag */
-  g_object_set(sink, "rotate-method", 8, NULL);
+  //g_object_set(sink, "rotate-method", 8, NULL);
 
   rootObject->scheduleRenderJob (new SetPlaying (pipeline),
       QQuickWindow::BeforeSynchronizingStage);

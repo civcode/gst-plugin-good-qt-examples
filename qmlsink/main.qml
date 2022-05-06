@@ -15,6 +15,11 @@ ApplicationWindow {
     y: 30
     color: "black"
 
+    minimumWidth: width
+    minimumHeight: height
+    maximumWidth: width
+    maximumHeight: height
+
     Item {
         anchors.fill: parent
 
@@ -28,7 +33,9 @@ ApplicationWindow {
 
         Rectangle {
             id: rectId
-            color: Qt.rgba(1, 1, 1, 0.7)
+            //color: Qt.rgba(1, 1, 1, 0.7)
+            color: Qt.rgba(30/255, 144/255, 1, 0.8)
+            //color: "dodgerblue"
             border.width: 1
             border.color: "white"
             anchors.bottom: video.bottom
@@ -44,11 +51,20 @@ ApplicationWindow {
                 anchors.fill: parent
                 hoverEnabled: true
                 onEntered: {
-                    parent.opacity = 1.0
-                    hidetimer.start()
+                    setRectVisibility()
                 }
-                onClicked: {
-                    parent.opacity = 1.0
+//                onClicked: {
+//                    //parent.opacity = 1.0
+//                    //hidetimer.stop()
+//                    //hidetimer.start()
+//                    setRectVisibility()
+//                }
+                onPositionChanged: {
+                    setRectVisibility()
+                }
+
+                function setRectVisibility() {
+                    rectId.opacity = 1.0
                     hidetimer.stop()
                     hidetimer.start()
                 }
