@@ -42,7 +42,7 @@ $ sudo apt-get install python3-pip
 $ sudo apt-get install ninja-build
 $ pip3 install --user meson
 $ vi ~/.bashrc
-  export PATH=$PATH:/home/chris/.local/bin
+  export PATH=$PATH:/home/$USER/.local/bin
 ```
 - Install qt5
   - download installer [(here)](https://login.qt.io/login)  (have to make qt account, even for open-source version)
