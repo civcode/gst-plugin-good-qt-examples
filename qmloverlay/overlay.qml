@@ -33,25 +33,25 @@ Item {
         }
     }
 
-    Text {
-        property int elapsedTime: 0
+//    Text {
+//        property int elapsedTime: 0
 
-        id: time
-        anchors.top: rotatingText.bottom
-        anchors.horizontalCenter: rotatingText.horizontalCenter
-        font.pointSize: 12
-        style: Text.Outline
-        styleColor: "black"
-        color: "white"
+//        id: time
+//        anchors.top: rotatingText.bottom
+//        anchors.horizontalCenter: rotatingText.horizontalCenter
+//        font.pointSize: 12
+//        style: Text.Outline
+//        styleColor: "black"
+//        color: "white"
 
-        Timer {
-            interval: 1000
-            running: true
-            repeat: true
-            onTriggered: {
-                parent.elapsedTime += interval / 1000
-                parent.text = "overlay: " + parent.elapsedTime.toString() + " seconds"
-            }
-        }
-    }
+//        Timer {
+//            interval: 1000
+//            running: true
+//            repeat: true
+//            onTriggered: {
+//                parent.elapsedTime += interval / 1000
+//                parent.text = "overlay: " + parent.elapsedTime.toString() + " seconds"
+//            }
+//        }
+//    }
 }

@@ -67,7 +67,8 @@ int main(int argc, char *argv[])
     g_assert (src && glupload && overlay && sink);
 
     gst_bin_add_many (GST_BIN (pipeline), src, glupload, overlay, overlay2, sink, NULL);
-    gst_element_link_many (src, glupload, overlay, overlay2, sink, NULL);
+    //gst_element_link_many (src, glupload, overlay, overlay2, sink, NULL);
+    gst_element_link_many (src, glupload, overlay, sink, NULL);
 
     /* load qmlglsink output */
     QQmlApplicationEngine engine;
